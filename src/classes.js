@@ -1,4 +1,4 @@
-export { Ship, Gameboard }
+export { Ship, Gameboard, Player }
 
 class Ship {
   constructor(length) {
@@ -49,6 +49,32 @@ class Gameboard {
   }
 
   receiveAttack(index) {
-    if (this.grid[index].length)
+    if (!Array.isArray(this.grid[index])) {
+      if (this.grid[index] == 0) this.grid[index] = 1
+    } else {
+      if (this.grid[index][0] == 0) {
+        this.grid[index][0] = 1;
+        this.grid[index][1].hit();
+      }
+    }
+  }
+
+  isFleetDestroyed() {
+    if (this.carrier.isSunk() &&
+    this.battleship.isSunk() &&
+    this.cruiser.isSunk() &&
+    this.submarine.isSunk() &&
+    this.destroyer.isSunk()) {
+      return true
+    }
+
+    return false
+  }
+}
+
+class Player {
+  constructor(type) {
+    this.type = (type == 1) ? 'human' : 'computer';
+    this.board = new Gameboard();
   }
 }
