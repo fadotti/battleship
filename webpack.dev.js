@@ -1,7 +1,7 @@
-const { merge } = require('webpack-merge');
-const common = require('./webpack.common.js');
+import { merge } from 'webpack-merge';
+import common from './webpack.common.js';
 
-module.exports = merge(common, {
+export default merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
@@ -20,6 +20,10 @@ module.exports = merge(common, {
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: "asset/resource",
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
       },
     ],
   },

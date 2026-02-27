@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'Ironclad Bolted';
+  src: url('./assets/fonts/ironcbr.ttf');
+}
+
+body.landing-page {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  font-family: "Noto Sans", sans-serif;
+  gap: 5rem;
+}
+
+div#battleship-banner {
+  font-family: 'Ironclad Bolted';
+  font-size: 6rem;
+  margin-top: 3rem;
+}
+
+div#player-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+div#player-info > div {
+  font-family: "Black Ops One", system-ui;
+  font-size: 1.3rem;
+}
