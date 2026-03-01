@@ -9,7 +9,8 @@ body.landing-page {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Black Ops One", system-ui;
+  /* font-family: "Noto Sans", sans-serif; */
   gap: 5rem;
 }
 
@@ -27,6 +28,22 @@ div#player-info {
 }
 
 div#player-info > div {
-  font-family: "Black Ops One", system-ui;
+  /* font-family: "Black Ops One", system-ui; */
   font-size: 1.3rem;
+}
+
+input#player-name {
+  height: 6rem;
+  width: 30vw;
+  font-family: "Black Ops One", system-ui;
+  font-size: 4.4rem;
+  text-align: center;
+}
+
+div#start-game > button {
+  background-color: aliceblue;
+  font-family: "Black Ops One", system-ui;
+  font-size: 2rem;
+  height: 3rem;
+  width: 15vw;
 }
