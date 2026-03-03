@@ -71,11 +71,23 @@ function renderBoardSetup() {
   document.querySelector('body > div:nth-child(2) > div:nth-child(2) > div:nth-child(2)')
     .setAttribute('class', 'numbers');
 
+  for(let i = 0; i < 11; i++) {
+    document.querySelector('div.letters').appendChild(div.cloneNode(true));
+  }
+
+  for(let i = 0; i < 10; i++) {
+    document.querySelector('div.numbers').appendChild(div.cloneNode(true));
+  }
+
   document.querySelectorAll('.letters > div').forEach((element, index) => {
     const utfBaseline = 64;
     if(index > 0) {
       element.textContent = String.fromCharCode(utfBaseline + index);
     }
+  })
+
+  document.querySelectorAll('.numbers > div').forEach((element, index) => {
+    element.textContent = `${index + 1}`;
   })
 
 
