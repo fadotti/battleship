@@ -69,25 +69,49 @@ div#board-setup-area {
   display: flex;
   gap: 10rem;
   align-items: center;
+  --square-side-length: 36.8px
 }
 
 div#quay {
   display: grid;
   grid-template-columns: repeat(5, 2.3rem);
   grid-template-rows: repeat(5, 2.3rem);
-  background-image: url(./assets/SVGs/oceanseamless-02.svg);
-  background-size: cover;
+  /* background-image: url(./assets/SVGs/oceanseamless-02.svg);
+  background-size: cover; */
+  background-color: teal;
 }
 
 div#quay > div {
   border: 1px solid aliceblue;
+  display: grid;
+  place-items: center;
+}
+div#quay > div:nth-child(1) > img {
+  height: calc(var(--square-side-length) * 2);
+}
+
+div#quay > div:nth-child(2) > img {
+  height: calc(var(--square-side-length) * 3);
+}
+
+div#quay > div:nth-child(3) > img {
+  height: calc(var(--square-side-length) * 3);
+}
+
+div#quay > div:nth-child(4) > img {
+  height: calc(var(--square-side-length) * 4);
+}
+
+div#quay > div:nth-child(5) > img {
+  height: calc(var(--square-side-length) * 4.9);
+  width: var(--square-side-length);
 }
 
 div.gameboard {
   display: grid;
   grid-template-columns: repeat(11, 2.3rem);
   grid-template-rows: repeat(11, 2.3rem);
-  background-image: url(./assets/SVGs/oceanseamless-02.svg);
+  background-image: url(./assets/SVGs/vecteezy_simple-abstract-dark-sea-green-color-halftone-blend-wavy_54761691.svg);
   background-size: cover;
 }
 
