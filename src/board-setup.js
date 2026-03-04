@@ -3,6 +3,7 @@ import submarine from './assets/sprites/Submarine/ShipSubMarineHull.png'
 import cruiser from './assets/sprites/Cruiser/ShipCruiserHull.png'
 import battleship from './assets/sprites/Battleship/ShipBattleshipHull.png'
 import carrier from './assets/sprites/Carrier/ShipCarrierHull.png'
+import rightArrow from './assets/SVGs/right-arrow-button-icon.svg'
 export { renderBoardSetup }
 
 function renderBoardSetup() {
@@ -27,32 +28,65 @@ function renderBoardSetup() {
 
 
   document.querySelector('body > div:nth-child(2)').appendChild(div.cloneNode(true));
-  document.querySelector('body > div:nth-child(2) > div').setAttribute('id', 'quay');
+  document.querySelector('body > div:nth-child(2) > div').setAttribute('id', 'quay-container');
+  document.querySelector('body > div:nth-child(2) > div').appendChild(div.cloneNode(true));
+  document.querySelector('body > div:nth-child(2) > div').appendChild(div.cloneNode(true));
+  document.querySelector('body > div:nth-child(2) > div').appendChild(div.cloneNode(true));
 
+  document.querySelector('body > div:nth-child(2) > div > div:nth-child(1)')
+    .textContent = 'Click on a ship to place it on the board:';
+
+  const span = document.createElement('span');
   const img = document.createElement('img');
 
+  document.querySelector('body > div:nth-child(2) > div > div:nth-child(3)').appendChild(span.cloneNode(true));
+  document.querySelector('body > div:nth-child(2) > div > div:nth-child(3)').appendChild(img.cloneNode(true));
+  document.querySelector('body > div:nth-child(2) > div > div:nth-child(3)').appendChild(span.cloneNode(true));
+
+  document.querySelector('body > div:nth-child(2) > div > div:nth-child(3) > span:nth-child(1)')
+    .textContent = 'Press the right arrow key ';
+
+  document.querySelector('body > div:nth-child(2) > div > div:nth-child(3) > img').src = rightArrow
+
+  document.querySelector('body > div:nth-child(2) > div > div:nth-child(3) > span:nth-child(3)')
+    .textContent = ' to change the orientation of the ship.';
+
+  document.querySelector('body > div:nth-child(2) > div > div:nth-child(2)').setAttribute('id', 'quay');
+
+  
+
   for(let i = 1; i <= 25; i++) {
-    document.querySelector('body > div:nth-child(2) > div').appendChild(div.cloneNode(true));
+    document.querySelector('body > div:nth-child(2) > div > div:nth-child(2)').appendChild(div.cloneNode(true));
     switch (i) {
       case 1:
-        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(${i})`).appendChild(img.cloneNode(true));
-        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(${i}) > img`).src = destroyer;
+        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(${i})`)
+          .appendChild(img.cloneNode(true));
+        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(${i}) > img`)
+          .src = destroyer;
         break;
       case 2:
-        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(${i})`).appendChild(img.cloneNode(true));
-        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(${i}) > img`).src = submarine;
+        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(${i})`)
+          .appendChild(img.cloneNode(true));
+        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(${i}) > img`)
+          .src = submarine;
         break;
       case 3:
-        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(${i})`).appendChild(img.cloneNode(true));
-        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(${i}) > img`).src = cruiser;
+        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(${i})`)
+          .appendChild(img.cloneNode(true));
+        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(${i}) > img`)
+          .src = cruiser;
         break;
       case 4:
-        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(${i})`).appendChild(img.cloneNode(true));
-        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(${i}) > img`).src = battleship;
+        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(${i})`)
+          .appendChild(img.cloneNode(true));
+        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(${i}) > img`)
+          .src = battleship;
         break;
       case 5:
-        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(${i})`).appendChild(img.cloneNode(true));
-        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(${i}) > img`).src = carrier;
+        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(${i})`)
+          .appendChild(img.cloneNode(true));
+        document.querySelector(`body > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(${i}) > img`)
+          .src = carrier;
         break;
     }
   }
