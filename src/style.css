@@ -205,3 +205,7 @@ div#arena-gameboards {
   display: flex;
   gap: 5rem;
 }
+
+div.gameboard:nth-child(2) > div.hidden {
+  background-color: black;
+}
