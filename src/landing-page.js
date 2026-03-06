@@ -38,6 +38,8 @@ function renderLandingPage() {
   document.querySelector('body > div:nth-child(2) > div').textContent = 'Enter your name to begin';
   document.querySelector('body > div:nth-child(2) > input').setAttribute('type', 'text');
   document.querySelector('body > div:nth-child(2) > input').setAttribute('id', 'player-name');
+  document.querySelector('body > div:nth-child(2) > input').setAttribute('required', '');
+  document.querySelector('body > div:nth-child(2) > input').setAttribute('pattern', '^[a-zA-Z]{3,12}$');
 
   document.querySelector('body > div:nth-child(3) > button').textContent = 'Start Game';
 }
