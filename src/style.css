@@ -40,12 +40,23 @@ input#player-name {
   text-align: center;
 }
 
+input#player-name:focus:user-invalid::after {
+  content: "Player name must: \A -Contain only upper or lower case letter. \A -Have a length that ranges between 3 and 12 characters";
+  color: white;
+  background-color: red;
+}
+
 div#start-game > button {
   background-color: aliceblue;
   font-family: "Black Ops One", system-ui;
   font-size: 2rem;
   height: 3rem;
   width: 15vw;
+}
+
+div#start-game > button.valid {
+  border-color: lawngreen;
+  color: lawngreen;
 }
 
 
