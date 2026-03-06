@@ -25,11 +25,36 @@ class Gameboard {
     this.destroyer = new Ship(2);
   }
 
-  placeShip(index, ship, orientation) {
-    const verticalRoom = 10 - Math.floor(index / 10);
+  #isHorizontalPlacementAllowed(index, ship) {
     const horizontalRoom = 10 - (index % 10);
+    let counter = ship.length;
+    if(ship.length <= horizontalRoom) {
+      while (counter > 0) {
+        if(this.grid[index] != 0) return false
+        ++index;
+        --counter;
+      }
+      return true
+    }
+    return false
+  }
 
-    if (orientation == 'horizontal' && ship.length <= horizontalRoom) {
+  #isVerticalPlacementAllowed(index, ship) {
+    const verticalRoom = 10 - Math.floor(index / 10);
+    let counter = ship.length;
+    if(ship.length <= verticalRoom) {
+      while (counter > 0) {
+        if(this.grid[index] != 0) return false
+        index += 10;
+        --counter;
+      }
+      return true
+    }
+    return false
+  }
+
+  placeShip(index, ship, orientation) {
+    if (orientation == 'horizontal' && this.#isHorizontalPlacementAllowed(index, ship)) {
       let counter = ship.length;
       while (counter > 0) {
         this.grid[index] = [0, ship];
@@ -38,7 +63,7 @@ class Gameboard {
       }
     }
 
-    if (orientation == 'vertical' && ship.length <= verticalRoom) {
+    if (orientation == 'vertical' && this.#isVerticalPlacementAllowed(index, ship)) {
       let counter = ship.length;
       while (counter > 0) {
         this.grid[index] = [0, ship];

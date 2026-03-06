@@ -32,6 +32,10 @@ test('placeShip behaves as expected for various kinds of ships and orientations'
   expect(board.grid[98]).toEqual([0, board.destroyer]);
   expect(board.grid[99]).toEqual([0, board.destroyer]);
 
+  board.placeShip(78, board.cruiser, 'vertical');
+  expect(board.grid[78]).toBe(0);
+  expect(board.grid[88]).toBe(0);
+
   board.placeShip(23, board.carrier, 'vertical');
   expect(board.grid[13]).toBe(0);
   expect(board.grid[23]).toEqual([0, board.carrier]);
@@ -40,6 +44,10 @@ test('placeShip behaves as expected for various kinds of ships and orientations'
   expect(board.grid[53]).toEqual([0, board.carrier]);
   expect(board.grid[63]).toEqual([0, board.carrier]);
   expect(board.grid[73]).toBe(0);
+
+  board.placeShip(23, board.cruiser, 'horizontal');
+  expect(board.grid[24]).toBe(0);
+  expect(board.grid[25]).toBe(0);
 })
 
 test('receiveAttack updates the grid for both misses and hits', () => {
