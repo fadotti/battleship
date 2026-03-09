@@ -141,4 +141,19 @@ function renderBoardSetup() {
   document.querySelector('body > img:nth-child(5)').setAttribute('class', 'cursor-submarine');
   document.querySelector('body > img:nth-child(5)').src = submarine;
   document.querySelector('body > img:nth-child(5)').style.display = 'none';
+
+  body.appendChild(img.cloneNode(true));
+  document.querySelector('body > img:nth-child(6)').setAttribute('class', 'cursor-subcruisermarine');
+  document.querySelector('body > img:nth-child(6)').src = cruiser;
+  document.querySelector('body > img:nth-child(6)').style.display = 'none';
+
+  body.appendChild(img.cloneNode(true));
+  document.querySelector('body > img:nth-child(7)').setAttribute('class', 'cursor-battleship');
+  document.querySelector('body > img:nth-child(7)').src = battleship;
+  document.querySelector('body > img:nth-child(7)').style.display = 'none';
+
+  body.appendChild(img.cloneNode(true));
+  document.querySelector('body > img:nth-child(8)').setAttribute('class', 'cursor-carrier');
+  document.querySelector('body > img:nth-child(8)').src = carrier;
+  document.querySelector('body > img:nth-child(8)').style.display = 'none';
 }

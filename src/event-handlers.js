@@ -43,9 +43,13 @@ function addBoardSetuphandlers() {
   let orientation = 'vertical';
   let isDestroyerPlaced = false;
   let isSubmarinePlaced = false;
+  let isCruiserPlaced = false;
+  let isBattleshipPlaced = false;
+  let isCarrierPlaced = false;
+  const fightButton = document.querySelector('body.board-setup > div:nth-child(3) > button');
   document.querySelectorAll('div#quay > div:nth-child(-5n + 6)').forEach((square, index, nodeList) => {
     square.addEventListener('mousedown', (eventOuter) => {     
-      if(!isDestroyerPlaced){
+      if(!isDestroyerPlaced) {
         currentShip = 'destroyer';
         if(nodeList[0].hasChildNodes()) nodeList[0].removeChild(nodeList[0].firstChild);
         document.body.style.cursor = 'none';
@@ -69,7 +73,6 @@ function addBoardSetuphandlers() {
         document.body.style.cursor = 'none';
         document.querySelector('body > img:nth-child(5)').setAttribute('class', 'cursor-submarine shown');
         document.querySelector('body > img:nth-child(5)').style.left = `${eventOuter.clientX - 5}px`;
-        console.log(eventOuter.clientX);
         document.querySelector('body > img:nth-child(5)').style.top = `${eventOuter.clientY - 5}px`;
         document.querySelector('body > img:nth-child(5)').style.display = 'block';
         document.addEventListener('mousemove', (event) => {
@@ -80,12 +83,65 @@ function addBoardSetuphandlers() {
     })
   })
 
+  document.querySelectorAll('div#quay > div:nth-child(-5n + 13)').forEach((square, index, nodeList) => {
+    square.addEventListener('mousedown', (eventOuter) => {
+      if(!isCruiserPlaced) {
+        currentShip = 'cruiser';
+        if(nodeList[0].hasChildNodes()) nodeList[0].removeChild(nodeList[0].firstChild);
+        document.body.style.cursor = 'none';
+        document.querySelector('body > img:nth-child(6)').setAttribute('class', 'cursor-cruiser shown');
+        document.querySelector('body > img:nth-child(6)').style.left = `${eventOuter.clientX - 5}px`;
+        document.querySelector('body > img:nth-child(6)').style.top = `${eventOuter.clientY - 5}px`;
+        document.querySelector('body > img:nth-child(6)').style.display = 'block';
+        document.addEventListener('mousemove', (event) => {
+          document.querySelector('body > img:nth-child(6)').style.left = `${event.clientX - 5}px`;
+          document.querySelector('body > img:nth-child(6)').style.top = `${event.clientY - 5}px`;
+        })
+      }
+    })
+  })
+
+  document.querySelectorAll('div#quay > div:nth-child(-5n + 19)').forEach((square, index, nodeList) => {
+    square.addEventListener('mousedown', (eventOuter) => {
+      if(!isBattleshipPlaced) {
+        currentShip = 'battleship';
+        if(nodeList[0].hasChildNodes()) nodeList[0].removeChild(nodeList[0].firstChild);
+        document.body.style.cursor = 'none';
+        document.querySelector('body > img:nth-child(7)').setAttribute('class', 'cursor-battleship shown');
+        document.querySelector('body > img:nth-child(7)').style.left = `${eventOuter.clientX - 5}px`;
+        document.querySelector('body > img:nth-child(7)').style.top = `${eventOuter.clientY - 5}px`;
+        document.querySelector('body > img:nth-child(7)').style.display = 'block';
+        document.addEventListener('mousemove', (event) => {
+          document.querySelector('body > img:nth-child(7)').style.left = `${event.clientX - 5}px`;
+          document.querySelector('body > img:nth-child(7)').style.top = `${event.clientY - 5}px`;
+        })
+      }
+    })
+  })
+
+  document.querySelectorAll('div#quay > div:nth-child(-5n + 25)').forEach((square, index, nodeList) => {
+    square.addEventListener('mousedown', (eventOuter) => {
+      if(!isCarrierPlaced) {
+        currentShip = 'carrier';
+        if(nodeList[0].hasChildNodes()) nodeList[0].removeChild(nodeList[0].firstChild);
+        document.body.style.cursor = 'none';
+        document.querySelector('body > img:nth-child(8)').setAttribute('class', 'cursor-carrier shown');
+        document.querySelector('body > img:nth-child(8)').style.left = `${eventOuter.clientX - 5}px`;
+        document.querySelector('body > img:nth-child(8)').style.top = `${eventOuter.clientY - 5}px`;
+        document.querySelector('body > img:nth-child(8)').style.display = 'block';
+        document.addEventListener('mousemove', (event) => {
+          document.querySelector('body > img:nth-child(8)').style.left = `${event.clientX - 5}px`;
+          document.querySelector('body > img:nth-child(8)').style.top = `${event.clientY - 5}px`;
+        })
+      }
+    })
+  })
+
   document.querySelectorAll('div.gameboard > div:not(.letters):not(.numbers)').forEach((square, index, nodeList) => {
     square.addEventListener('mousedown', () => {
       switch(currentShip) {
         case 'destroyer':
             const placeDestroyerReturnValue = player.board.placeShip(index, player.board.destroyer, 'vertical');
-            console.log(placeDestroyerReturnValue);
             if(placeDestroyerReturnValue) {
               currentShip = '';
               square.appendChild(document.createElement('img'));
@@ -95,13 +151,15 @@ function addBoardSetuphandlers() {
               document.querySelector('body > img.shown').setAttribute('class', 'cursor-destroyer');
               document.body.style.cursor = 'auto';
               isDestroyerPlaced = true;
+              if(isDestroyerPlaced && isSubmarinePlaced && isCruiserPlaced && isBattleshipPlaced && isCarrierPlaced) {
+                fightButton.setAttribute('class', 'valid');
+              }
           }
           console.log(player.board.grid);
           console.log(nodeList);
           break;
         case 'submarine':
             const placeSubmarineReturnValue = player.board.placeShip(index, player.board.submarine, 'vertical');
-            console.log(placeSubmarineReturnValue);
             if(placeSubmarineReturnValue) {
               currentShip = '';
               square.appendChild(document.createElement('img'));
@@ -111,6 +169,51 @@ function addBoardSetuphandlers() {
               document.querySelector('body > img.shown').setAttribute('class', 'cursor-submarine');
               document.body.style.cursor = 'auto';
               isSubmarinePlaced = true;
+          }
+          console.log(player.board.grid);
+          console.log(nodeList);
+          break;
+        case 'cruiser':
+            const placeCruiserReturnValue = player.board.placeShip(index, player.board.cruiser, 'vertical');
+            if(placeCruiserReturnValue) {
+              currentShip = '';
+              square.appendChild(document.createElement('img'));
+              nodeList[index].firstChild.src = cruiser;
+              nodeList[index].setAttribute('class', 'vertical cruiser');
+              document.querySelector('body > img.shown').style.display = 'none';
+              document.querySelector('body > img.shown').setAttribute('class', 'cursor-cruiser');
+              document.body.style.cursor = 'auto';
+              isCruiserPlaced = true;
+          }
+          console.log(player.board.grid);
+          console.log(nodeList);
+          break;
+        case 'battleship':
+            const placeBattleshipReturnValue = player.board.placeShip(index, player.board.battleship, 'vertical');
+            if(placeBattleshipReturnValue) {
+              currentShip = '';
+              square.appendChild(document.createElement('img'));
+              nodeList[index].firstChild.src = battleship;
+              nodeList[index].setAttribute('class', 'vertical battleship');
+              document.querySelector('body > img.shown').style.display = 'none';
+              document.querySelector('body > img.shown').setAttribute('class', 'cursor-battleship');
+              document.body.style.cursor = 'auto';
+              isBattleshipPlaced = true;
+          }
+          console.log(player.board.grid);
+          console.log(nodeList);
+          break;
+        case 'carrier':
+            const placeCarrierReturnValue = player.board.placeShip(index, player.board.carrier, 'vertical');
+            if(placeCarrierReturnValue) {
+              currentShip = '';
+              square.appendChild(document.createElement('img'));
+              nodeList[index].firstChild.src = carrier;
+              nodeList[index].setAttribute('class', 'vertical carrier');
+              document.querySelector('body > img.shown').style.display = 'none';
+              document.querySelector('body > img.shown').setAttribute('class', 'cursor-carrier');
+              document.body.style.cursor = 'auto';
+              isCarrierPlaced = true;
           }
           console.log(player.board.grid);
           console.log(nodeList);
