@@ -167,6 +167,19 @@ div.gameboard > div {
   border: 1px solid aliceblue;
 }
 
+div.gameboard > div:not(.letters):not(.numbers) {
+  display: grid;
+  place-items: center;
+}
+
+div.gameboard > div.vertical.destroyer > img {
+  height: calc(var(--square-side-length) * 2);
+}
+
+div.gameboard > div.vertical.submarine > img {
+  height: calc(var(--square-side-length) * 3);
+}
+
 div.gameboard > div:hover {
   background-color: rgba(127 255 212 / 0.5);
 }

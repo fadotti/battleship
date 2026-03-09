@@ -61,6 +61,7 @@ class Gameboard {
         ++index;
         --counter;
       }
+      return true
     }
 
     if (orientation == 'vertical' && this.#isVerticalPlacementAllowed(index, ship)) {
@@ -70,7 +71,9 @@ class Gameboard {
         index += 10;
         --counter;
       }
+      return true
     }
+    return false
   }
 
   receiveAttack(index) {
@@ -98,8 +101,9 @@ class Gameboard {
 }
 
 class Player {
-  constructor(type) {
+  constructor(type, name) {
     this.type = (type == 1) ? 'human' : 'computer';
+    this.name = name;
     this.board = new Gameboard();
   }
 }

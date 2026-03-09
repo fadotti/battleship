@@ -136,4 +136,9 @@ function renderBoardSetup() {
   document.querySelector('body > img:nth-child(4)').setAttribute('class', 'cursor-destroyer');
   document.querySelector('body > img:nth-child(4)').src = destroyer;
   document.querySelector('body > img:nth-child(4)').style.display = 'none';
+
+  body.appendChild(img.cloneNode(true));
+  document.querySelector('body > img:nth-child(5)').setAttribute('class', 'cursor-submarine');
+  document.querySelector('body > img:nth-child(5)').src = submarine;
+  document.querySelector('body > img:nth-child(5)').style.display = 'none';
 }
