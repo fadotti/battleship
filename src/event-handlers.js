@@ -169,6 +169,9 @@ function addBoardSetuphandlers() {
               document.querySelector('body > img.shown').setAttribute('class', 'cursor-submarine');
               document.body.style.cursor = 'auto';
               isSubmarinePlaced = true;
+              if(isDestroyerPlaced && isSubmarinePlaced && isCruiserPlaced && isBattleshipPlaced && isCarrierPlaced) {
+                fightButton.setAttribute('class', 'valid');
+              }
           }
           console.log(player.board.grid);
           console.log(nodeList);
@@ -184,6 +187,9 @@ function addBoardSetuphandlers() {
               document.querySelector('body > img.shown').setAttribute('class', 'cursor-cruiser');
               document.body.style.cursor = 'auto';
               isCruiserPlaced = true;
+              if(isDestroyerPlaced && isSubmarinePlaced && isCruiserPlaced && isBattleshipPlaced && isCarrierPlaced) {
+                fightButton.setAttribute('class', 'valid');
+              }
           }
           console.log(player.board.grid);
           console.log(nodeList);
@@ -199,6 +205,9 @@ function addBoardSetuphandlers() {
               document.querySelector('body > img.shown').setAttribute('class', 'cursor-battleship');
               document.body.style.cursor = 'auto';
               isBattleshipPlaced = true;
+              if(isDestroyerPlaced && isSubmarinePlaced && isCruiserPlaced && isBattleshipPlaced && isCarrierPlaced) {
+                fightButton.setAttribute('class', 'valid');
+              }
           }
           console.log(player.board.grid);
           console.log(nodeList);
@@ -214,6 +223,9 @@ function addBoardSetuphandlers() {
               document.querySelector('body > img.shown').setAttribute('class', 'cursor-carrier');
               document.body.style.cursor = 'auto';
               isCarrierPlaced = true;
+              if(isDestroyerPlaced && isSubmarinePlaced && isCruiserPlaced && isBattleshipPlaced && isCarrierPlaced) {
+                fightButton.setAttribute('class', 'valid');
+              }
           }
           console.log(player.board.grid);
           console.log(nodeList);
