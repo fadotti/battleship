@@ -70,6 +70,20 @@ body.board-setup {
   font-family: "Black Ops One", system-ui;
   /* font-family: "Noto Sans", sans-serif; */
   gap: 5rem;
+  --square-side-length: 36.8px;
+  overflow: hidden;
+}
+
+/* body.board-setup.destroyer {
+  cursor: url("./assets/sprites/Destroyer/ShipDestroyerHull.png"), auto;
+  height: calc(var(--square-side-length) * 2);
+} */
+
+img.cursor-destroyer {
+  position: absolute;
+  height: calc(var(--square-side-length) * 2);
+  pointer-events: none;
+  cursor: none;
 }
 
 div#board-setup-header {
@@ -80,7 +94,6 @@ div#board-setup-area {
   display: flex;
   gap: 10rem;
   align-items: center;
-  --square-side-length: 36.8px
 }
 
 div#quay-container {
@@ -115,6 +128,12 @@ div#quay > div {
   display: grid;
   place-items: center;
 }
+
+div#quay > div:hover {
+  background-color: rgba(127 255 212 / 0.5);
+  cursor: grab;
+}
+
 div#quay > div:nth-child(1) > img {
   height: calc(var(--square-side-length) * 2);
 }
@@ -146,6 +165,10 @@ div.gameboard {
 
 div.gameboard > div {
   border: 1px solid aliceblue;
+}
+
+div.gameboard > div:hover {
+  background-color: rgba(127 255 212 / 0.5);
 }
 
 div.gameboard > div.letters,

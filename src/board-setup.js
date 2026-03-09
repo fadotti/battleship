@@ -27,6 +27,7 @@ function renderBoardSetup() {
 
 
 
+
   document.querySelector('body > div:nth-child(2)').appendChild(div.cloneNode(true));
   document.querySelector('body > div:nth-child(2) > div').setAttribute('id', 'quay-container');
   document.querySelector('body > div:nth-child(2) > div').appendChild(div.cloneNode(true));
@@ -130,4 +131,9 @@ function renderBoardSetup() {
 
   document.querySelector('body > div:nth-child(3)').appendChild(button.cloneNode(true));
   document.querySelector('body > div:nth-child(3) > button').textContent = 'Fight!';
+
+  body.appendChild(img.cloneNode(true));
+  document.querySelector('body > img:nth-child(4)').setAttribute('class', 'cursor-destroyer');
+  document.querySelector('body > img:nth-child(4)').src = destroyer;
+  document.querySelector('body > img:nth-child(4)').style.display = 'none';
 }
