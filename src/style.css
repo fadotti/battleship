@@ -252,21 +252,46 @@ div.gameboard > div.vertical.destroyer > img {
   height: calc(var(--square-side-length) * 2);
 }
 
+div.gameboard > div.horizontal.destroyer > img {
+  width: calc(var(--square-side-length) * 2);
+  height: calc(calc(var(--square-side-length) * 2) * var(--destroyer-width-to-height));
+}
+
 div.gameboard > div.vertical.submarine > img {
   height: calc(var(--square-side-length) * 3);
+}
+
+div.gameboard > div.horizontal.submarine > img {
+  width: calc(var(--square-side-length) * 3);
+  height: calc(calc(var(--square-side-length) * 3) * var(--submarine-width-to-height));
 }
 
 div.gameboard > div.vertical.cruiser > img {
   height: calc(var(--square-side-length) * 3);
 }
 
+div.gameboard > div.horizontal.cruiser > img {
+  width: calc(var(--square-side-length) * 3);
+  height: calc(calc(var(--square-side-length) * 3) * var(--cruiser-width-to-height));
+}
+
 div.gameboard > div.vertical.battleship > img {
   height: calc(var(--square-side-length) * 4);
+}
+
+div.gameboard > div.horizontal.battleship > img {
+  width: calc(var(--square-side-length) * 4);
+  height: calc(calc(var(--square-side-length) * 4) * var(--battleship-width-to-height));
 }
 
 div.gameboard > div.vertical.carrier > img {
   height: calc(var(--square-side-length) * 4.9);
   width: var(--square-side-length);
+}
+
+div.gameboard > div.horizontal.carrier > img {
+  width: calc(var(--square-side-length) * 4.9);
+  height: var(--square-side-length);
 }
 
 div.gameboard > div:hover {
