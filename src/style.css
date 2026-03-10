@@ -3,6 +3,13 @@
   src: url('./assets/fonts/ironcbr.ttf');
 }
 
+:root {
+  --destroyer-width-to-height: calc(20 / 100);
+  --submarine-width-to-height: calc(35 / 142);
+  --cruiser-width-to-height: calc(23 / 128);
+  --battleship-width-to-height: calc(31 / 209);
+}
+
 body.landing-page {
   margin: 0;
   display: flex;
@@ -86,9 +93,25 @@ img.cursor-destroyer {
   cursor: none;
 }
 
+img.cursor-destroyer.horizontal {
+  position: absolute;
+  width: calc(var(--square-side-length) * 2);
+  height: calc(calc(var(--square-side-length) * 2) * var(--destroyer-width-to-height));
+  pointer-events: none;
+  cursor: none;
+}
+
 img.cursor-submarine {
   position: absolute;
   height: calc(var(--square-side-length) * 3);
+  pointer-events: none;
+  cursor: none;
+}
+
+img.cursor-submarine.horizontal {
+  position: absolute;
+  width: calc(var(--square-side-length) * 3);
+  height: calc(calc(var(--square-side-length) * 3) * var(--submarine-width-to-height));
   pointer-events: none;
   cursor: none;
 }
@@ -100,9 +123,25 @@ img.cursor-cruiser {
   cursor: none;
 }
 
+img.cursor-cruiser.horizontal {
+  position: absolute;
+  width: calc(var(--square-side-length) * 3);
+  height: calc(calc(var(--square-side-length) * 3) * var(--cruiser-width-to-height));
+  pointer-events: none;
+  cursor: none;
+}
+
 img.cursor-battleship {
   position: absolute;
   height: calc(var(--square-side-length) * 4);
+  pointer-events: none;
+  cursor: none;
+}
+
+img.cursor-battleship.horizontal {
+  position: absolute;
+  width: calc(var(--square-side-length) * 4);
+  height: calc(calc(var(--square-side-length) * 4) * var(--battleship-width-to-height));
   pointer-events: none;
   cursor: none;
 }
@@ -111,6 +150,14 @@ img.cursor-carrier {
   position: absolute;
   height: calc(var(--square-side-length) * 4.9);
   width: var(--square-side-length);
+  pointer-events: none;
+  cursor: none;
+}
+
+img.cursor-carrier.horizontal {
+  position: absolute;
+  width: calc(var(--square-side-length) * 4.9);
+  height: var(--square-side-length);
   pointer-events: none;
   cursor: none;
 }

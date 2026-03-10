@@ -1,8 +1,13 @@
 import destroyer from './assets/sprites/Destroyer/ShipDestroyerHull.png'
+import horizontalDestroyer from './assets/sprites/Destroyer/ShipDestroyerHullHorizontal.png'
 import submarine from './assets/sprites/Submarine/ShipSubMarineHull.png'
+import horizontalSubmarine from './assets/sprites/Submarine/ShipSubMarineHullHorizontal.png'
 import cruiser from './assets/sprites/Cruiser/ShipCruiserHull.png'
+import horizontalCruiser from './assets/sprites/Cruiser/ShipCruiserHullHorizontal.png'
 import battleship from './assets/sprites/Battleship/ShipBattleshipHull.png'
+import horizontalBattleship from './assets/sprites/Battleship/ShipBattleshipHullHorizontal.png'
 import carrier from './assets/sprites/Carrier/ShipCarrierHull.png'
+import horizontalCarrier from './assets/sprites/Carrier/ShipCarrierHullHorizontal.png'
 import rightArrow from './assets/SVGs/right-arrow-button-icon.svg'
 export { renderBoardSetup }
 
@@ -143,7 +148,7 @@ function renderBoardSetup() {
   document.querySelector('body > img:nth-child(5)').style.display = 'none';
 
   body.appendChild(img.cloneNode(true));
-  document.querySelector('body > img:nth-child(6)').setAttribute('class', 'cursor-subcruisermarine');
+  document.querySelector('body > img:nth-child(6)').setAttribute('class', 'cursor-cruiser');
   document.querySelector('body > img:nth-child(6)').src = cruiser;
   document.querySelector('body > img:nth-child(6)').style.display = 'none';
 
@@ -156,4 +161,29 @@ function renderBoardSetup() {
   document.querySelector('body > img:nth-child(8)').setAttribute('class', 'cursor-carrier');
   document.querySelector('body > img:nth-child(8)').src = carrier;
   document.querySelector('body > img:nth-child(8)').style.display = 'none';
+
+  body.appendChild(img.cloneNode(true));
+  document.querySelector('body > img:nth-child(9)').setAttribute('class', 'cursor-destroyer horizontal');
+  document.querySelector('body > img:nth-child(9)').src = horizontalDestroyer;
+  document.querySelector('body > img:nth-child(9)').style.display = 'none';
+
+  body.appendChild(img.cloneNode(true));
+  document.querySelector('body > img:nth-child(10)').setAttribute('class', 'cursor-submarine horizontal');
+  document.querySelector('body > img:nth-child(10)').src = horizontalSubmarine;
+  document.querySelector('body > img:nth-child(10)').style.display = 'none';
+
+  body.appendChild(img.cloneNode(true));
+  document.querySelector('body > img:nth-child(11)').setAttribute('class', 'cursor-cruiser horizontal');
+  document.querySelector('body > img:nth-child(11)').src = horizontalCruiser;
+  document.querySelector('body > img:nth-child(11)').style.display = 'none';
+
+  body.appendChild(img.cloneNode(true));
+  document.querySelector('body > img:nth-child(12)').setAttribute('class', 'cursor-battleship horizontal');
+  document.querySelector('body > img:nth-child(12)').src = horizontalBattleship;
+  document.querySelector('body > img:nth-child(12)').style.display = 'none';
+
+  body.appendChild(img.cloneNode(true));
+  document.querySelector('body > img:nth-child(13)').setAttribute('class', 'cursor-carrier horizontal');
+  document.querySelector('body > img:nth-child(13)').src = horizontalCarrier;
+  document.querySelector('body > img:nth-child(13)').style.display = 'none';
 }

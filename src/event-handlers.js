@@ -3,6 +3,7 @@ import { renderBoardSetup } from "./board-setup.js";
 import { renderArena } from "./arena.js";
 import { Player } from "./classes.js";
 import destroyer from './assets/sprites/Destroyer/ShipDestroyerHull.png'
+import horizontalDestroyer from './assets/sprites/Destroyer/ShipDestroyerHullHorizontal.png'
 import submarine from './assets/sprites/Submarine/ShipSubMarineHull.png'
 import cruiser from './assets/sprites/Cruiser/ShipCruiserHull.png'
 import battleship from './assets/sprites/Battleship/ShipBattleshipHull.png'
@@ -47,20 +48,71 @@ function addBoardSetuphandlers() {
   let isBattleshipPlaced = false;
   let isCarrierPlaced = false;
   const fightButton = document.querySelector('body.board-setup > div:nth-child(3) > button');
+  document.querySelector('html').addEventListener('keydown', (event) => {
+    if(event.key == 'ArrowRight') {
+      orientation = (orientation == 'vertical') ? 'horizontal' : 'vertical';
+    }
+    console.log(orientation);
+  })
+
   document.querySelectorAll('div#quay > div:nth-child(-5n + 6)').forEach((square, index, nodeList) => {
     square.addEventListener('mousedown', (eventOuter) => {     
       if(!isDestroyerPlaced) {
         currentShip = 'destroyer';
         if(nodeList[0].hasChildNodes()) nodeList[0].removeChild(nodeList[0].firstChild);
         document.body.style.cursor = 'none';
-        document.querySelector('body > img:nth-child(4)').setAttribute('class', 'cursor-destroyer shown');
-        document.querySelector('body > img:nth-child(4)').style.left = `${eventOuter.clientX - 5}px`;
-        document.querySelector('body > img:nth-child(4)').style.top = `${eventOuter.clientY - 5}px`;
-        document.querySelector('body > img:nth-child(4)').style.display = 'block';
-        document.addEventListener('mousemove', (event) => {
-          document.querySelector('body > img:nth-child(4)').style.left = `${event.clientX - 5}px`;
-          document.querySelector('body > img:nth-child(4)').style.top = `${event.clientY - 5}px`;
-        })
+        if(orientation == 'vertical') {
+          document.querySelector('body > img:nth-child(4)').setAttribute('class', 'cursor-destroyer shown');
+          document.querySelector('body > img:nth-child(4)').style.left = `${eventOuter.clientX - 5}px`;
+          document.querySelector('body > img:nth-child(4)').style.top = `${eventOuter.clientY - 5}px`;
+          document.querySelector('body > img:nth-child(4)').style.display = 'block';
+          document.addEventListener('mousemove', (event) => {
+            switch(orientation) {
+              case 'vertical':
+                document.querySelector('body > img:nth-child(9)').setAttribute('class', 'cursor-destroyer horizontal');
+                document.querySelector('body > img:nth-child(9)').style.display = 'none';
+                document.querySelector('body > img:nth-child(4)').setAttribute('class', 'cursor-destroyer shown');
+                document.querySelector('body > img:nth-child(4)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(4)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(4)').style.display = 'block';
+                break;
+              case 'horizontal':
+                document.querySelector('body > img:nth-child(4)').setAttribute('class', 'cursor-destroyer');
+                document.querySelector('body > img:nth-child(4)').style.display = 'none';
+                document.querySelector('body > img:nth-child(9)').setAttribute('class', 'cursor-destroyer horizontal shown');
+                document.querySelector('body > img:nth-child(9)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(9)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(9)').style.display = 'block';   
+                break;            
+            }
+          })
+        }
+        if(orientation == 'horizontal') {
+          document.querySelector('body > img:nth-child(9)').setAttribute('class', 'cursor-destroyer horizontal shown');
+          document.querySelector('body > img:nth-child(9)').style.left = `${eventOuter.clientX - 5}px`;
+          document.querySelector('body > img:nth-child(9)').style.top = `${eventOuter.clientY - 5}px`;
+          document.querySelector('body > img:nth-child(9)').style.display = 'block';
+          document.addEventListener('mousemove', (event) => {
+            switch(orientation) {
+              case 'vertical':
+                document.querySelector('body > img:nth-child(9)').setAttribute('class', 'cursor-destroyer horizontal');
+                document.querySelector('body > img:nth-child(9)').style.display = 'none';
+                document.querySelector('body > img:nth-child(4)').setAttribute('class', 'cursor-destroyer shown');
+                document.querySelector('body > img:nth-child(4)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(4)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(4)').style.display = 'block';
+                break;
+              case 'horizontal':
+                document.querySelector('body > img:nth-child(4)').setAttribute('class', 'cursor-destroyer');
+                document.querySelector('body > img:nth-child(4)').style.display = 'none';
+                document.querySelector('body > img:nth-child(9)').setAttribute('class', 'cursor-destroyer horizontal shown');
+                document.querySelector('body > img:nth-child(9)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(9)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(9)').style.display = 'block';   
+                break;            
+            }
+          })
+        }
       }
     })
   })
@@ -71,14 +123,58 @@ function addBoardSetuphandlers() {
         currentShip = 'submarine';
         if(nodeList[0].hasChildNodes()) nodeList[0].removeChild(nodeList[0].firstChild);
         document.body.style.cursor = 'none';
-        document.querySelector('body > img:nth-child(5)').setAttribute('class', 'cursor-submarine shown');
-        document.querySelector('body > img:nth-child(5)').style.left = `${eventOuter.clientX - 5}px`;
-        document.querySelector('body > img:nth-child(5)').style.top = `${eventOuter.clientY - 5}px`;
-        document.querySelector('body > img:nth-child(5)').style.display = 'block';
-        document.addEventListener('mousemove', (event) => {
-          document.querySelector('body > img:nth-child(5)').style.left = `${event.clientX - 5}px`;
-          document.querySelector('body > img:nth-child(5)').style.top = `${event.clientY - 5}px`;
-        })
+        if(orientation == 'vertical') {
+          document.querySelector('body > img:nth-child(5)').setAttribute('class', 'cursor-submarine shown');
+          document.querySelector('body > img:nth-child(5)').style.left = `${eventOuter.clientX - 5}px`;
+          document.querySelector('body > img:nth-child(5)').style.top = `${eventOuter.clientY - 5}px`;
+          document.querySelector('body > img:nth-child(5)').style.display = 'block';
+          document.addEventListener('mousemove', (event) => {
+            switch(orientation) {
+              case 'vertical':
+                document.querySelector('body > img:nth-child(10)').setAttribute('class', 'cursor-submarine horizontal');
+                document.querySelector('body > img:nth-child(10)').style.display = 'none';
+                document.querySelector('body > img:nth-child(5)').setAttribute('class', 'cursor-submarine shown');
+                document.querySelector('body > img:nth-child(5)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(5)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(5)').style.display = 'block';
+                break;
+              case 'horizontal':
+                document.querySelector('body > img:nth-child(5)').setAttribute('class', 'cursor-submarine');
+                document.querySelector('body > img:nth-child(5)').style.display = 'none';
+                document.querySelector('body > img:nth-child(10)').setAttribute('class', 'cursor-submarine horizontal shown');
+                document.querySelector('body > img:nth-child(10)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(10)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(10)').style.display = 'block';   
+                break;            
+            }
+          })
+        }
+        if(orientation == 'horizontal') {
+          document.querySelector('body > img:nth-child(10)').setAttribute('class', 'cursor-submarine horizontal shown');
+          document.querySelector('body > img:nth-child(10)').style.left = `${eventOuter.clientX - 5}px`;
+          document.querySelector('body > img:nth-child(10)').style.top = `${eventOuter.clientY - 5}px`;
+          document.querySelector('body > img:nth-child(10)').style.display = 'block';
+          document.addEventListener('mousemove', (event) => {
+            switch(orientation) {
+              case 'vertical':
+                document.querySelector('body > img:nth-child(10)').setAttribute('class', 'cursor-submarine horizontal');
+                document.querySelector('body > img:nth-child(10)').style.display = 'none';
+                document.querySelector('body > img:nth-child(5)').setAttribute('class', 'cursor-submarine shown');
+                document.querySelector('body > img:nth-child(5)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(5)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(5)').style.display = 'block';
+                break;
+              case 'horizontal':
+                document.querySelector('body > img:nth-child(5)').setAttribute('class', 'cursor-submarine');
+                document.querySelector('body > img:nth-child(5)').style.display = 'none';
+                document.querySelector('body > img:nth-child(10)').setAttribute('class', 'cursor-submarine horizontal shown');
+                document.querySelector('body > img:nth-child(10)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(10)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(10)').style.display = 'block';   
+                break;            
+            }
+          })
+        }
       }
     })
   })
@@ -89,14 +185,58 @@ function addBoardSetuphandlers() {
         currentShip = 'cruiser';
         if(nodeList[0].hasChildNodes()) nodeList[0].removeChild(nodeList[0].firstChild);
         document.body.style.cursor = 'none';
-        document.querySelector('body > img:nth-child(6)').setAttribute('class', 'cursor-cruiser shown');
-        document.querySelector('body > img:nth-child(6)').style.left = `${eventOuter.clientX - 5}px`;
-        document.querySelector('body > img:nth-child(6)').style.top = `${eventOuter.clientY - 5}px`;
-        document.querySelector('body > img:nth-child(6)').style.display = 'block';
-        document.addEventListener('mousemove', (event) => {
-          document.querySelector('body > img:nth-child(6)').style.left = `${event.clientX - 5}px`;
-          document.querySelector('body > img:nth-child(6)').style.top = `${event.clientY - 5}px`;
-        })
+        if(orientation == 'vertical') {
+          document.querySelector('body > img:nth-child(6)').setAttribute('class', 'cursor-cruiser shown');
+          document.querySelector('body > img:nth-child(6)').style.left = `${eventOuter.clientX - 5}px`;
+          document.querySelector('body > img:nth-child(6)').style.top = `${eventOuter.clientY - 5}px`;
+          document.querySelector('body > img:nth-child(6)').style.display = 'block';
+          document.addEventListener('mousemove', (event) => {
+            switch(orientation) {
+              case 'vertical':
+                document.querySelector('body > img:nth-child(11)').setAttribute('class', 'cursor-cruiser horizontal');
+                document.querySelector('body > img:nth-child(11)').style.display = 'none';
+                document.querySelector('body > img:nth-child(6)').setAttribute('class', 'cursor-cruiser shown');
+                document.querySelector('body > img:nth-child(6)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(6)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(6)').style.display = 'block';
+                break;
+              case 'horizontal':
+                document.querySelector('body > img:nth-child(6)').setAttribute('class', 'cursor-cruiser');
+                document.querySelector('body > img:nth-child(6)').style.display = 'none';
+                document.querySelector('body > img:nth-child(11)').setAttribute('class', 'cursor-cruiser horizontal shown');
+                document.querySelector('body > img:nth-child(11)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(11)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(11)').style.display = 'block';   
+                break;            
+            }
+          })
+        }
+        if(orientation == 'horizontal') {
+          document.querySelector('body > img:nth-child(11)').setAttribute('class', 'cursor-cruiser horizontal shown');
+          document.querySelector('body > img:nth-child(11)').style.left = `${eventOuter.clientX - 5}px`;
+          document.querySelector('body > img:nth-child(11)').style.top = `${eventOuter.clientY - 5}px`;
+          document.querySelector('body > img:nth-child(11)').style.display = 'block';
+          document.addEventListener('mousemove', (event) => {
+            switch(orientation) {
+              case 'vertical':
+                document.querySelector('body > img:nth-child(11)').setAttribute('class', 'cursor-cruiser horizontal');
+                document.querySelector('body > img:nth-child(11)').style.display = 'none';
+                document.querySelector('body > img:nth-child(6)').setAttribute('class', 'cursor-cruiser shown');
+                document.querySelector('body > img:nth-child(6)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(6)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(6)').style.display = 'block';
+                break;
+              case 'horizontal':
+                document.querySelector('body > img:nth-child(6)').setAttribute('class', 'cursor-cruiser');
+                document.querySelector('body > img:nth-child(6)').style.display = 'none';
+                document.querySelector('body > img:nth-child(11)').setAttribute('class', 'cursor-cruiser horizontal shown');
+                document.querySelector('body > img:nth-child(11)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(11)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(11)').style.display = 'block';   
+                break;            
+            }
+          })
+        }
       }
     })
   })
@@ -107,14 +247,58 @@ function addBoardSetuphandlers() {
         currentShip = 'battleship';
         if(nodeList[0].hasChildNodes()) nodeList[0].removeChild(nodeList[0].firstChild);
         document.body.style.cursor = 'none';
-        document.querySelector('body > img:nth-child(7)').setAttribute('class', 'cursor-battleship shown');
-        document.querySelector('body > img:nth-child(7)').style.left = `${eventOuter.clientX - 5}px`;
-        document.querySelector('body > img:nth-child(7)').style.top = `${eventOuter.clientY - 5}px`;
-        document.querySelector('body > img:nth-child(7)').style.display = 'block';
-        document.addEventListener('mousemove', (event) => {
-          document.querySelector('body > img:nth-child(7)').style.left = `${event.clientX - 5}px`;
-          document.querySelector('body > img:nth-child(7)').style.top = `${event.clientY - 5}px`;
-        })
+        if(orientation == 'vertical') {
+          document.querySelector('body > img:nth-child(7)').setAttribute('class', 'cursor-battleship shown');
+          document.querySelector('body > img:nth-child(7)').style.left = `${eventOuter.clientX - 5}px`;
+          document.querySelector('body > img:nth-child(7)').style.top = `${eventOuter.clientY - 5}px`;
+          document.querySelector('body > img:nth-child(7)').style.display = 'block';
+          document.addEventListener('mousemove', (event) => {
+            switch(orientation) {
+              case 'vertical':
+                document.querySelector('body > img:nth-child(12)').setAttribute('class', 'cursor-battleship horizontal');
+                document.querySelector('body > img:nth-child(12)').style.display = 'none';
+                document.querySelector('body > img:nth-child(7)').setAttribute('class', 'cursor-battleship shown');
+                document.querySelector('body > img:nth-child(7)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(7)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(7)').style.display = 'block';
+                break;
+              case 'horizontal':
+                document.querySelector('body > img:nth-child(7)').setAttribute('class', 'cursor-battleship');
+                document.querySelector('body > img:nth-child(7)').style.display = 'none';
+                document.querySelector('body > img:nth-child(12)').setAttribute('class', 'cursor-battleship horizontal shown');
+                document.querySelector('body > img:nth-child(12)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(12)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(12)').style.display = 'block';   
+                break;            
+            }
+          })
+        }
+        if(orientation == 'horizontal') {
+          document.querySelector('body > img:nth-child(12)').setAttribute('class', 'cursor-battleship horizontal shown');
+          document.querySelector('body > img:nth-child(12)').style.left = `${eventOuter.clientX - 5}px`;
+          document.querySelector('body > img:nth-child(12)').style.top = `${eventOuter.clientY - 5}px`;
+          document.querySelector('body > img:nth-child(12)').style.display = 'block';
+          document.addEventListener('mousemove', (event) => {
+            switch(orientation) {
+              case 'vertical':
+                document.querySelector('body > img:nth-child(12)').setAttribute('class', 'cursor-battleship horizontal');
+                document.querySelector('body > img:nth-child(12)').style.display = 'none';
+                document.querySelector('body > img:nth-child(7)').setAttribute('class', 'cursor-battleship shown');
+                document.querySelector('body > img:nth-child(7)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(7)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(7)').style.display = 'block';
+                break;
+              case 'horizontal':
+                document.querySelector('body > img:nth-child(7)').setAttribute('class', 'cursor-battleship');
+                document.querySelector('body > img:nth-child(7)').style.display = 'none';
+                document.querySelector('body > img:nth-child(12)').setAttribute('class', 'cursor-battleship horizontal shown');
+                document.querySelector('body > img:nth-child(12)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(12)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(12)').style.display = 'block';   
+                break;            
+            }
+          })
+        }
       }
     })
   })
@@ -125,14 +309,58 @@ function addBoardSetuphandlers() {
         currentShip = 'carrier';
         if(nodeList[0].hasChildNodes()) nodeList[0].removeChild(nodeList[0].firstChild);
         document.body.style.cursor = 'none';
-        document.querySelector('body > img:nth-child(8)').setAttribute('class', 'cursor-carrier shown');
-        document.querySelector('body > img:nth-child(8)').style.left = `${eventOuter.clientX - 5}px`;
-        document.querySelector('body > img:nth-child(8)').style.top = `${eventOuter.clientY - 5}px`;
-        document.querySelector('body > img:nth-child(8)').style.display = 'block';
-        document.addEventListener('mousemove', (event) => {
-          document.querySelector('body > img:nth-child(8)').style.left = `${event.clientX - 5}px`;
-          document.querySelector('body > img:nth-child(8)').style.top = `${event.clientY - 5}px`;
-        })
+        if(orientation == 'vertical') {
+          document.querySelector('body > img:nth-child(8)').setAttribute('class', 'cursor-carrier shown');
+          document.querySelector('body > img:nth-child(8)').style.left = `${eventOuter.clientX - 5}px`;
+          document.querySelector('body > img:nth-child(8)').style.top = `${eventOuter.clientY - 5}px`;
+          document.querySelector('body > img:nth-child(8)').style.display = 'block';
+          document.addEventListener('mousemove', (event) => {
+            switch(orientation) {
+              case 'vertical':
+                document.querySelector('body > img:nth-child(13)').setAttribute('class', 'cursor-carrier horizontal');
+                document.querySelector('body > img:nth-child(13)').style.display = 'none';
+                document.querySelector('body > img:nth-child(8)').setAttribute('class', 'cursor-carrier shown');
+                document.querySelector('body > img:nth-child(8)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(8)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(8)').style.display = 'block';
+                break;
+              case 'horizontal':
+                document.querySelector('body > img:nth-child(8)').setAttribute('class', 'cursor-carrier');
+                document.querySelector('body > img:nth-child(8)').style.display = 'none';
+                document.querySelector('body > img:nth-child(13)').setAttribute('class', 'cursor-carrier horizontal shown');
+                document.querySelector('body > img:nth-child(13)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(13)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(13)').style.display = 'block';   
+                break;            
+            }
+          })
+        }
+        if(orientation == 'horizontal') {
+          document.querySelector('body > img:nth-child(13)').setAttribute('class', 'cursor-carrier horizontal shown');
+          document.querySelector('body > img:nth-child(13)').style.left = `${eventOuter.clientX - 5}px`;
+          document.querySelector('body > img:nth-child(13)').style.top = `${eventOuter.clientY - 5}px`;
+          document.querySelector('body > img:nth-child(13)').style.display = 'block';
+          document.addEventListener('mousemove', (event) => {
+            switch(orientation) {
+              case 'vertical':
+                document.querySelector('body > img:nth-child(13)').setAttribute('class', 'cursor-carrier horizontal');
+                document.querySelector('body > img:nth-child(13)').style.display = 'none';
+                document.querySelector('body > img:nth-child(8)').setAttribute('class', 'cursor-carrier shown');
+                document.querySelector('body > img:nth-child(8)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(8)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(8)').style.display = 'block';
+                break;
+              case 'horizontal':
+                document.querySelector('body > img:nth-child(8)').setAttribute('class', 'cursor-carrier');
+                document.querySelector('body > img:nth-child(8)').style.display = 'none';
+                document.querySelector('body > img:nth-child(13)').setAttribute('class', 'cursor-carrier horizontal shown');
+                document.querySelector('body > img:nth-child(13)').style.left = `${event.clientX - 5}px`;
+                document.querySelector('body > img:nth-child(13)').style.top = `${event.clientY - 5}px`;
+                document.querySelector('body > img:nth-child(13)').style.display = 'block';   
+                break;            
+            }
+          })
+        }
       }
     })
   })
