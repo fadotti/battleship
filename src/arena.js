@@ -8,7 +8,12 @@ import battleship from './assets/sprites/Battleship/ShipBattleshipHull.png'
 import horizontalBattleship from './assets/sprites/Battleship/ShipBattleshipHullHorizontal.png'
 import carrier from './assets/sprites/Carrier/ShipCarrierHull.png'
 import horizontalCarrier from './assets/sprites/Carrier/ShipCarrierHullHorizontal.png'
-import { player, playersGameboard } from './event-handlers.js'
+import attackIconBlue from './assets/SVGs/sword-cross-blue.svg'
+import attackIconRed from './assets/SVGs/sword-cross-red.svg'
+import cannonball from './assets/sound/freesound_community-cannonball-89596.mp3'
+import splash from './assets/sound/freesound_community-splash_2-98207.mp3'
+import hit from './assets/sound/soundreality-hit-windy-thud-399086.mp3'
+import { player, playersBoard } from './event-handlers.js'
 import { Player } from './classes.js'
 export { renderArena }
 
@@ -47,7 +52,7 @@ function renderArena() {
 
 
 
-  document.querySelector('div#arena-gameboards').appendChild(playersGameboard);
+  document.querySelector('div#arena-gameboards').appendChild(playersBoard);
   document.querySelector('div#arena-gameboards').appendChild(div.cloneNode(true));
 
   // document.querySelector('div#arena-gameboards > div:nth-child(1)').setAttribute('class', 'gameboard');
@@ -112,7 +117,7 @@ function renderArena() {
     element.textContent = `${index + 1}`;
   })
 
-  document.querySelector('div#game-flow-text').textContent = 'Fire at the enemy!';
+  document.querySelector('div#game-flow-text').textContent = "It's your turn yo attack: click an enemy square";
 
   const computer = new Player(0, 'computer');
   // let currentShip = 'destroyer';
@@ -125,6 +130,7 @@ function renderArena() {
   let isCarrierPlaced = false;
 
   const computerGameboard = document.querySelectorAll('div#arena-gameboards > div.gameboard:nth-child(2) > div:not(.letters):not(.numbers)');
+  const playersGameboard = document.querySelectorAll('div#arena-gameboards > div.gameboard:nth-child(2) > div:not(.letters):not(.numbers)');
 
   while(!isDestroyerPlaced) {
     const placeShipAtindex = Math.floor(Math.random() * 100);
@@ -138,4 +144,83 @@ function renderArena() {
       isDestroyerPlaced = true;
     }
   }
+
+  orientation = (Math.random() < 0.5) ? 'vertical' : 'horizontal';
+
+  while(!isSubmarinePlaced) {
+    const placeShipAtindex = Math.floor(Math.random() * 100);
+    const placeShipReturnValue = computer.board.placeShip(placeShipAtindex, player.board.submarine, orientation);
+    console.log(computer.board.grid);
+    if(placeShipReturnValue) {
+      computerGameboard[placeShipAtindex].appendChild(document.createElement('img'));
+      computerGameboard[placeShipAtindex].firstChild.src = orientation == 'vertical' ? submarine : horizontalSubmarine;
+      if(orientation == 'vertical') computerGameboard[placeShipAtindex].setAttribute('class', 'vertical submarine');
+      if(orientation == 'horizontal') computerGameboard[placeShipAtindex].setAttribute('class', 'horizontal submarine');
+      isSubmarinePlaced = true;
+    }
+  }
+
+  orientation = (Math.random() < 0.5) ? 'vertical' : 'horizontal';
+
+  while(!isCruiserPlaced) {
+    const placeShipAtindex = Math.floor(Math.random() * 100);
+    const placeShipReturnValue = computer.board.placeShip(placeShipAtindex, player.board.cruiser, orientation);
+    console.log(computer.board.grid);
+    if(placeShipReturnValue) {
+      computerGameboard[placeShipAtindex].appendChild(document.createElement('img'));
+      computerGameboard[placeShipAtindex].firstChild.src = orientation == 'vertical' ? cruiser : horizontalCruiser;
+      if(orientation == 'vertical') computerGameboard[placeShipAtindex].setAttribute('class', 'vertical cruiser');
+      if(orientation == 'horizontal') computerGameboard[placeShipAtindex].setAttribute('class', 'horizontal cruiser');
+      isCruiserPlaced = true;
+    }
+  }
+
+  orientation = (Math.random() < 0.5) ? 'vertical' : 'horizontal';
+
+  while(!isBattleshipPlaced) {
+    const placeShipAtindex = Math.floor(Math.random() * 100);
+    const placeShipReturnValue = computer.board.placeShip(placeShipAtindex, player.board.battleship, orientation);
+    console.log(computer.board.grid);
+    if(placeShipReturnValue) {
+      computerGameboard[placeShipAtindex].appendChild(document.createElement('img'));
+      computerGameboard[placeShipAtindex].firstChild.src = orientation == 'vertical' ? battleship : horizontalBattleship;
+      if(orientation == 'vertical') computerGameboard[placeShipAtindex].setAttribute('class', 'vertical battleship');
+      if(orientation == 'horizontal') computerGameboard[placeShipAtindex].setAttribute('class', 'horizontal battleship');
+      isBattleshipPlaced = true;
+    }
+  }
+
+  orientation = (Math.random() < 0.5) ? 'vertical' : 'horizontal';
+
+  while(!isCarrierPlaced) {
+    const placeShipAtindex = Math.floor(Math.random() * 100);
+    const placeShipReturnValue = computer.board.placeShip(placeShipAtindex, player.board.carrier, orientation);
+    console.log(computer.board.grid);
+    if(placeShipReturnValue) {
+      computerGameboard[placeShipAtindex].appendChild(document.createElement('img'));
+      computerGameboard[placeShipAtindex].firstChild.src = orientation == 'vertical' ? carrier : horizontalCarrier;
+      if(orientation == 'vertical') computerGameboard[placeShipAtindex].setAttribute('class', 'vertical carrier');
+      if(orientation == 'horizontal') computerGameboard[placeShipAtindex].setAttribute('class', 'horizontal carrier');
+      isCarrierPlaced = true;
+    }
+  }
+
+  computerGameboard[10].appendChild(document.createElement('img'));
+  computerGameboard[10].classList.add('hit');
+  computerGameboard[10].firstChild.src = attackIconRed;
+
+  let currentTurn = 'player';
+  const attackSound = new Audio(cannonball);
+
+  computerGameboard.forEach((square, index, nodeList) => {
+    square.addEventListener('click', () => {
+      if(currentTurn == 'player') {
+        console.log(square.classList)
+        console.log(square.classList.contains('hit'));
+        if(!square.classList.contains('hit')) {
+          attackSound.play();
+        }
+      }
+    })
+  })
 }

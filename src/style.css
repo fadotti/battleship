@@ -294,6 +294,11 @@ div.gameboard > div.horizontal.carrier > img {
   height: var(--square-side-length);
 }
 
+div.gameboard > div > img:nth-child(2),
+div.gameboard > div:not(.horizontal):not(.vertical) > img {
+  height: var(--square-side-length);
+}
+
 div.gameboard > div:hover {
   background-color: rgba(127 255 212 / 0.5);
 }

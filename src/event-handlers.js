@@ -13,10 +13,10 @@ import horizontalBattleship from './assets/sprites/Battleship/ShipBattleshipHull
 import carrier from './assets/sprites/Carrier/ShipCarrierHull.png'
 import horizontalCarrier from './assets/sprites/Carrier/ShipCarrierHullHorizontal.png'
 import rightArrow from './assets/SVGs/right-arrow-button-icon.svg'
-export { addLandingPageHandlers, addBoardSetuphandlers, player, playersGameboard };
+export { addLandingPageHandlers, addBoardSetuphandlers, player, playersBoard };
 
 let player;
-let playersGameboard;
+let playersBoard;
 
 function addLandingPageHandlers() {
   const playerNameInput = document.querySelector('body > div:nth-child(2) > input');
@@ -499,7 +499,7 @@ function addBoardSetuphandlers() {
 
   fightButton.addEventListener('click', () => {
     if(fightButton.className == 'valid') {
-      playersGameboard = document.querySelector('div.gameboard').cloneNode(true);
+      playersBoard = document.querySelector('div.gameboard').cloneNode(true);
       renderArena();
       console.log(player.board);
     }
