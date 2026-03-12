@@ -11,8 +11,8 @@ import horizontalCarrier from './assets/sprites/Carrier/ShipCarrierHullHorizonta
 import attackIconBlue from './assets/SVGs/sword-cross-blue.svg'
 import attackIconRed from './assets/SVGs/sword-cross-red.svg'
 import cannonball from './assets/sound/freesound_community-cannonball-89596.mp3'
-import splash from './assets/sound/freesound_community-splash_2-98207.mp3'
-import hit from './assets/sound/soundreality-hit-windy-thud-399086.mp3'
+import splash from './assets/sound/freesound_community-splash_2-98207-[AudioTrimmer.com].mp3'
+import hit from './assets/sound/soundreality-hit-windy-thud-399086-[AudioTrimmer.com].mp3'
 import { player, playersBoard } from './event-handlers.js'
 import { Player } from './classes.js'
 export { renderArena }
@@ -117,7 +117,7 @@ function renderArena() {
     element.textContent = `${index + 1}`;
   })
 
-  document.querySelector('div#game-flow-text').textContent = "It's your turn yo attack: click an enemy square";
+  document.querySelector('div#game-flow-text').textContent = "It's your turn to attack: click an enemy square";
 
   const computer = new Player(0, 'computer');
   // let currentShip = 'destroyer';
@@ -134,8 +134,8 @@ function renderArena() {
 
   while(!isDestroyerPlaced) {
     const placeShipAtIndex = Math.floor(Math.random() * 100);
-    const placeShipReturnValue = computer.board.placeShip(placeShipAtIndex, player.board.destroyer, orientation);
-    console.log(computer.board.grid);
+    const placeShipReturnValue = computer.board.placeShip(placeShipAtIndex, computer.board.destroyer, orientation);
+    // console.log(computer.board.grid);
     if(placeShipReturnValue) {
       computerGameboard[placeShipAtIndex].appendChild(document.createElement('img'));
       computerGameboard[placeShipAtIndex].firstChild.src = orientation == 'vertical' ? destroyer : horizontalDestroyer;
@@ -149,8 +149,8 @@ function renderArena() {
 
   while(!isSubmarinePlaced) {
     const placeShipAtIndex = Math.floor(Math.random() * 100);
-    const placeShipReturnValue = computer.board.placeShip(placeShipAtIndex, player.board.submarine, orientation);
-    console.log(computer.board.grid);
+    const placeShipReturnValue = computer.board.placeShip(placeShipAtIndex, computer.board.submarine, orientation);
+    // console.log(computer.board.grid);
     if(placeShipReturnValue) {
       computerGameboard[placeShipAtIndex].appendChild(document.createElement('img'));
       computerGameboard[placeShipAtIndex].firstChild.src = orientation == 'vertical' ? submarine : horizontalSubmarine;
@@ -164,8 +164,8 @@ function renderArena() {
 
   while(!isCruiserPlaced) {
     const placeShipAtIndex = Math.floor(Math.random() * 100);
-    const placeShipReturnValue = computer.board.placeShip(placeShipAtIndex, player.board.cruiser, orientation);
-    console.log(computer.board.grid);
+    const placeShipReturnValue = computer.board.placeShip(placeShipAtIndex, computer.board.cruiser, orientation);
+    // console.log(computer.board.grid);
     if(placeShipReturnValue) {
       computerGameboard[placeShipAtIndex].appendChild(document.createElement('img'));
       computerGameboard[placeShipAtIndex].firstChild.src = orientation == 'vertical' ? cruiser : horizontalCruiser;
@@ -179,8 +179,8 @@ function renderArena() {
 
   while(!isBattleshipPlaced) {
     const placeShipAtIndex = Math.floor(Math.random() * 100);
-    const placeShipReturnValue = computer.board.placeShip(placeShipAtIndex, player.board.battleship, orientation);
-    console.log(computer.board.grid);
+    const placeShipReturnValue = computer.board.placeShip(placeShipAtIndex, computer.board.battleship, orientation);
+    // console.log(computer.board.grid);
     if(placeShipReturnValue) {
       computerGameboard[placeShipAtIndex].appendChild(document.createElement('img'));
       computerGameboard[placeShipAtIndex].firstChild.src = orientation == 'vertical' ? battleship : horizontalBattleship;
@@ -194,8 +194,8 @@ function renderArena() {
 
   while(!isCarrierPlaced) {
     const placeShipAtIndex = Math.floor(Math.random() * 100);
-    const placeShipReturnValue = computer.board.placeShip(placeShipAtIndex, player.board.carrier, orientation);
-    console.log(computer.board.grid);
+    const placeShipReturnValue = computer.board.placeShip(placeShipAtIndex, computer.board.carrier, orientation);
+    // console.log(computer.board.grid);
     if(placeShipReturnValue) {
       computerGameboard[placeShipAtIndex].appendChild(document.createElement('img'));
       computerGameboard[placeShipAtIndex].firstChild.src = orientation == 'vertical' ? carrier : horizontalCarrier;
@@ -205,37 +205,91 @@ function renderArena() {
     }
   }
 
-  playersGameboard[10].appendChild(document.createElement('img'));
-  playersGameboard[10].classList.add('hit');
-  playersGameboard[10].lastChild.src = attackIconRed;
+  // playersGameboard[10].appendChild(document.createElement('img'));
+  // playersGameboard[10].classList.add('hit');
+  // playersGameboard[10].lastChild.src = attackIconRed;
 
   let currentTurn = 'player';
   const attackSound = new Audio(cannonball);
   const hitSound = new Audio(hit);
   const splashSound = new Audio(splash);
+  let arrayOfIndices = Array(100).fill().map((x,i)=>i);
+
+  function generateRandomDelay() {
+    const pseudoRandom = Math.random() * 3;
+    if(pseudoRandom < 1) {
+      return 500
+    } else if(pseudoRandom < 2) {
+      return 750
+    } else {
+      return 1000
+    }
+  }
 
   computerGameboard.forEach((square, index, nodeList) => {
     square.addEventListener('click', () => {
       if(currentTurn == 'player') {
-        console.log(square.classList)
-        console.log(square.classList.contains('hit'));
+        // console.log(square.classList)
+        // console.log(square.classList.contains('hit'));
         if(!square.classList.contains('hit')) {
-          // currentTurn = 'computer';
-          const pseudoRandom = Math.random() * 3;
-          let attackDelay;
-          if(pseudoRandom < 1) {
-            attackDelay = 1000;
-          } else if(pseudoRandom < 2) {
-            attackDelay = 2000;
-          } else {
-            attackDelay = 3000;
-          }
+          document.querySelector('div#game-flow-text').textContent = '';
+          currentTurn = 'computer';
           attackSound.play();
           setTimeout(() => {
-            splashSound.play();
-          }, attackDelay);
+            computer.board.receiveAttack(index);
+            if(!Array.isArray(computer.board.grid[index])) {
+              splashSound.play();
+              computerGameboard[index].appendChild(document.createElement('img'));
+              computerGameboard[index].classList.add('hit');
+              computerGameboard[index].lastChild.src = attackIconBlue;
+            } else {
+              hitSound.play();
+              computerGameboard[index].appendChild(document.createElement('img'));
+              computerGameboard[index].classList.add('hit');
+              computerGameboard[index].lastChild.src = attackIconRed;
+            }
+            console.log(computer.board.destroyer.isSunk());
+            // console.log(computer.board.isFleetDestroyed());
+            if(computer.board.isFleetDestroyed()) {
+              document.querySelector('div#game-flow-text').textContent = `${player.name} wins! Reload the page to play again.`;
+            }
+            if(!computer.board.isFleetDestroyed()) {
+              setTimeout(() => {
+                attackSound.play();
+                setTimeout(() => {
+                  const randomIndex = Math.floor(Math.random() * arrayOfIndices.length);
+                  console.log(arrayOfIndices);
+                  player.board.receiveAttack(arrayOfIndices[randomIndex]);
+                  if(!Array.isArray(player.board.grid[arrayOfIndices[randomIndex]])) {
+                    splashSound.play();
+                    playersGameboard[arrayOfIndices[randomIndex]].appendChild(document.createElement('img'));
+                    playersGameboard[arrayOfIndices[randomIndex]].classList.add('hit');
+                    playersGameboard[arrayOfIndices[randomIndex]].lastChild.src = attackIconBlue;
+                  } else {
+                    hitSound.play();
+                    playersGameboard[arrayOfIndices[randomIndex]].appendChild(document.createElement('img'));
+                    playersGameboard[arrayOfIndices[randomIndex]].classList.add('hit');
+                    playersGameboard[arrayOfIndices[randomIndex]].lastChild.src = attackIconRed;
+                  }
+                  arrayOfIndices.splice(randomIndex, 1);
+                  if(player.board.isFleetDestroyed()) {
+                    'The computer wins! Reload the page to play again.';
+                  }
+                  setTimeout(() => {
+                    if(!player.board.isFleetDestroyed()) {
+                      currentTurn = 'player';
+                      document.querySelector('div#game-flow-text').textContent = "It's your turn to attack: click an enemy square";
+                    }
+                  }, 2700)
+                }, generateRandomDelay())
+              }, 2700)
+            }
+          }, generateRandomDelay());
         }
       }
     })
   })
+
+  window.computer = computer;
+  window.player = player;
 }
