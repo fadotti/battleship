@@ -130,17 +130,17 @@ function renderArena() {
   let isCarrierPlaced = false;
 
   const computerGameboard = document.querySelectorAll('div#arena-gameboards > div.gameboard:nth-child(2) > div:not(.letters):not(.numbers)');
-  const playersGameboard = document.querySelectorAll('div#arena-gameboards > div.gameboard:nth-child(2) > div:not(.letters):not(.numbers)');
+  const playersGameboard = document.querySelectorAll('div#arena-gameboards > div.gameboard:nth-child(1) > div:not(.letters):not(.numbers)');
 
   while(!isDestroyerPlaced) {
-    const placeShipAtindex = Math.floor(Math.random() * 100);
-    const placeShipReturnValue = computer.board.placeShip(placeShipAtindex, player.board.destroyer, orientation);
+    const placeShipAtIndex = Math.floor(Math.random() * 100);
+    const placeShipReturnValue = computer.board.placeShip(placeShipAtIndex, player.board.destroyer, orientation);
     console.log(computer.board.grid);
     if(placeShipReturnValue) {
-      computerGameboard[placeShipAtindex].appendChild(document.createElement('img'));
-      computerGameboard[placeShipAtindex].firstChild.src = orientation == 'vertical' ? destroyer : horizontalDestroyer;
-      if(orientation == 'vertical') computerGameboard[placeShipAtindex].setAttribute('class', 'vertical destroyer');
-      if(orientation == 'horizontal') computerGameboard[placeShipAtindex].setAttribute('class', 'horizontal destroyer');
+      computerGameboard[placeShipAtIndex].appendChild(document.createElement('img'));
+      computerGameboard[placeShipAtIndex].firstChild.src = orientation == 'vertical' ? destroyer : horizontalDestroyer;
+      if(orientation == 'vertical') computerGameboard[placeShipAtIndex].setAttribute('class', 'vertical destroyer');
+      if(orientation == 'horizontal') computerGameboard[placeShipAtIndex].setAttribute('class', 'horizontal destroyer');
       isDestroyerPlaced = true;
     }
   }
@@ -148,14 +148,14 @@ function renderArena() {
   orientation = (Math.random() < 0.5) ? 'vertical' : 'horizontal';
 
   while(!isSubmarinePlaced) {
-    const placeShipAtindex = Math.floor(Math.random() * 100);
-    const placeShipReturnValue = computer.board.placeShip(placeShipAtindex, player.board.submarine, orientation);
+    const placeShipAtIndex = Math.floor(Math.random() * 100);
+    const placeShipReturnValue = computer.board.placeShip(placeShipAtIndex, player.board.submarine, orientation);
     console.log(computer.board.grid);
     if(placeShipReturnValue) {
-      computerGameboard[placeShipAtindex].appendChild(document.createElement('img'));
-      computerGameboard[placeShipAtindex].firstChild.src = orientation == 'vertical' ? submarine : horizontalSubmarine;
-      if(orientation == 'vertical') computerGameboard[placeShipAtindex].setAttribute('class', 'vertical submarine');
-      if(orientation == 'horizontal') computerGameboard[placeShipAtindex].setAttribute('class', 'horizontal submarine');
+      computerGameboard[placeShipAtIndex].appendChild(document.createElement('img'));
+      computerGameboard[placeShipAtIndex].firstChild.src = orientation == 'vertical' ? submarine : horizontalSubmarine;
+      if(orientation == 'vertical') computerGameboard[placeShipAtIndex].setAttribute('class', 'vertical submarine');
+      if(orientation == 'horizontal') computerGameboard[placeShipAtIndex].setAttribute('class', 'horizontal submarine');
       isSubmarinePlaced = true;
     }
   }
@@ -163,14 +163,14 @@ function renderArena() {
   orientation = (Math.random() < 0.5) ? 'vertical' : 'horizontal';
 
   while(!isCruiserPlaced) {
-    const placeShipAtindex = Math.floor(Math.random() * 100);
-    const placeShipReturnValue = computer.board.placeShip(placeShipAtindex, player.board.cruiser, orientation);
+    const placeShipAtIndex = Math.floor(Math.random() * 100);
+    const placeShipReturnValue = computer.board.placeShip(placeShipAtIndex, player.board.cruiser, orientation);
     console.log(computer.board.grid);
     if(placeShipReturnValue) {
-      computerGameboard[placeShipAtindex].appendChild(document.createElement('img'));
-      computerGameboard[placeShipAtindex].firstChild.src = orientation == 'vertical' ? cruiser : horizontalCruiser;
-      if(orientation == 'vertical') computerGameboard[placeShipAtindex].setAttribute('class', 'vertical cruiser');
-      if(orientation == 'horizontal') computerGameboard[placeShipAtindex].setAttribute('class', 'horizontal cruiser');
+      computerGameboard[placeShipAtIndex].appendChild(document.createElement('img'));
+      computerGameboard[placeShipAtIndex].firstChild.src = orientation == 'vertical' ? cruiser : horizontalCruiser;
+      if(orientation == 'vertical') computerGameboard[placeShipAtIndex].setAttribute('class', 'vertical cruiser');
+      if(orientation == 'horizontal') computerGameboard[placeShipAtIndex].setAttribute('class', 'horizontal cruiser');
       isCruiserPlaced = true;
     }
   }
@@ -178,14 +178,14 @@ function renderArena() {
   orientation = (Math.random() < 0.5) ? 'vertical' : 'horizontal';
 
   while(!isBattleshipPlaced) {
-    const placeShipAtindex = Math.floor(Math.random() * 100);
-    const placeShipReturnValue = computer.board.placeShip(placeShipAtindex, player.board.battleship, orientation);
+    const placeShipAtIndex = Math.floor(Math.random() * 100);
+    const placeShipReturnValue = computer.board.placeShip(placeShipAtIndex, player.board.battleship, orientation);
     console.log(computer.board.grid);
     if(placeShipReturnValue) {
-      computerGameboard[placeShipAtindex].appendChild(document.createElement('img'));
-      computerGameboard[placeShipAtindex].firstChild.src = orientation == 'vertical' ? battleship : horizontalBattleship;
-      if(orientation == 'vertical') computerGameboard[placeShipAtindex].setAttribute('class', 'vertical battleship');
-      if(orientation == 'horizontal') computerGameboard[placeShipAtindex].setAttribute('class', 'horizontal battleship');
+      computerGameboard[placeShipAtIndex].appendChild(document.createElement('img'));
+      computerGameboard[placeShipAtIndex].firstChild.src = orientation == 'vertical' ? battleship : horizontalBattleship;
+      if(orientation == 'vertical') computerGameboard[placeShipAtIndex].setAttribute('class', 'vertical battleship');
+      if(orientation == 'horizontal') computerGameboard[placeShipAtIndex].setAttribute('class', 'horizontal battleship');
       isBattleshipPlaced = true;
     }
   }
@@ -193,24 +193,26 @@ function renderArena() {
   orientation = (Math.random() < 0.5) ? 'vertical' : 'horizontal';
 
   while(!isCarrierPlaced) {
-    const placeShipAtindex = Math.floor(Math.random() * 100);
-    const placeShipReturnValue = computer.board.placeShip(placeShipAtindex, player.board.carrier, orientation);
+    const placeShipAtIndex = Math.floor(Math.random() * 100);
+    const placeShipReturnValue = computer.board.placeShip(placeShipAtIndex, player.board.carrier, orientation);
     console.log(computer.board.grid);
     if(placeShipReturnValue) {
-      computerGameboard[placeShipAtindex].appendChild(document.createElement('img'));
-      computerGameboard[placeShipAtindex].firstChild.src = orientation == 'vertical' ? carrier : horizontalCarrier;
-      if(orientation == 'vertical') computerGameboard[placeShipAtindex].setAttribute('class', 'vertical carrier');
-      if(orientation == 'horizontal') computerGameboard[placeShipAtindex].setAttribute('class', 'horizontal carrier');
+      computerGameboard[placeShipAtIndex].appendChild(document.createElement('img'));
+      computerGameboard[placeShipAtIndex].firstChild.src = orientation == 'vertical' ? carrier : horizontalCarrier;
+      if(orientation == 'vertical') computerGameboard[placeShipAtIndex].setAttribute('class', 'vertical carrier');
+      if(orientation == 'horizontal') computerGameboard[placeShipAtIndex].setAttribute('class', 'horizontal carrier');
       isCarrierPlaced = true;
     }
   }
 
-  computerGameboard[10].appendChild(document.createElement('img'));
-  computerGameboard[10].classList.add('hit');
-  computerGameboard[10].firstChild.src = attackIconRed;
+  playersGameboard[10].appendChild(document.createElement('img'));
+  playersGameboard[10].classList.add('hit');
+  playersGameboard[10].lastChild.src = attackIconRed;
 
   let currentTurn = 'player';
   const attackSound = new Audio(cannonball);
+  const hitSound = new Audio(hit);
+  const splashSound = new Audio(splash);
 
   computerGameboard.forEach((square, index, nodeList) => {
     square.addEventListener('click', () => {
@@ -218,7 +220,20 @@ function renderArena() {
         console.log(square.classList)
         console.log(square.classList.contains('hit'));
         if(!square.classList.contains('hit')) {
+          // currentTurn = 'computer';
+          const pseudoRandom = Math.random() * 3;
+          let attackDelay;
+          if(pseudoRandom < 1) {
+            attackDelay = 1000;
+          } else if(pseudoRandom < 2) {
+            attackDelay = 2000;
+          } else {
+            attackDelay = 3000;
+          }
           attackSound.play();
+          setTimeout(() => {
+            splashSound.play();
+          }, attackDelay);
         }
       }
     })

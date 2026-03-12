@@ -294,9 +294,12 @@ div.gameboard > div.horizontal.carrier > img {
   height: var(--square-side-length);
 }
 
-div.gameboard > div > img:nth-child(2),
+div.gameboard > div.horizontal > img:nth-child(2),
+div.gameboard > div.vertical > img:nth-child(2),
 div.gameboard > div:not(.horizontal):not(.vertical) > img {
   height: var(--square-side-length);
+  width: var(--square-side-length);
+  position: absolute;
 }
 
 div.gameboard > div:hover {
