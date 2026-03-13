@@ -214,15 +214,16 @@ function renderArena() {
   const hitSound = new Audio(hit);
   const splashSound = new Audio(splash);
   let arrayOfIndices = Array(100).fill().map((x,i)=>i);
+  let attackQueue = [];
 
   function generateRandomDelay() {
     const pseudoRandom = Math.random() * 3;
     if(pseudoRandom < 1) {
       return 500
     } else if(pseudoRandom < 2) {
-      return 750
-    } else {
       return 1000
+    } else {
+      return 1500
     }
   }
 
@@ -257,23 +258,35 @@ function renderArena() {
               setTimeout(() => {
                 attackSound.play();
                 setTimeout(() => {
-                  const randomIndex = Math.floor(Math.random() * arrayOfIndices.length);
+                  if(attackQueue.length == 0) {
+                    const randomIndex = Math.floor(Math.random() * arrayOfIndices.length);
+                    attackQueue.push(arrayOfIndices[randomIndex])
+                    arrayOfIndices.splice(randomIndex, 1);
+                  }            
                   console.log(arrayOfIndices);
-                  player.board.receiveAttack(arrayOfIndices[randomIndex]);
-                  if(!Array.isArray(player.board.grid[arrayOfIndices[randomIndex]])) {
+                  player.board.receiveAttack(attackQueue[0]);
+                  if(!Array.isArray(player.board.grid[attackQueue[0]])) {
                     splashSound.play();
-                    playersGameboard[arrayOfIndices[randomIndex]].appendChild(document.createElement('img'));
-                    playersGameboard[arrayOfIndices[randomIndex]].classList.add('hit');
-                    playersGameboard[arrayOfIndices[randomIndex]].lastChild.src = attackIconBlue;
+                    playersGameboard[attackQueue[0]].appendChild(document.createElement('img'));
+                    playersGameboard[attackQueue[0]].classList.add('hit');
+                    playersGameboard[attackQueue[0]].lastChild.src = attackIconBlue;
                   } else {
                     hitSound.play();
-                    playersGameboard[arrayOfIndices[randomIndex]].appendChild(document.createElement('img'));
-                    playersGameboard[arrayOfIndices[randomIndex]].classList.add('hit');
-                    playersGameboard[arrayOfIndices[randomIndex]].lastChild.src = attackIconRed;
+                    playersGameboard[attackQueue[0]].appendChild(document.createElement('img'));
+                    playersGameboard[attackQueue[0]].classList.add('hit');
+                    playersGameboard[attackQueue[0]].lastChild.src = attackIconRed;
+
+                    const adjacentIndices = player.board.gatherAdjacentIndices(attackQueue[0]);
+                    adjacentIndices.forEach((index) => {
+                      if(!playersGameboard[index].classList.contains('hit')) {
+                        attackQueue.push(index);
+                        arrayOfIndices = arrayOfIndices.filter((element) => element != index);
+                      }
+                    })
                   }
-                  arrayOfIndices.splice(randomIndex, 1);
+                  attackQueue.splice(0, 1);
                   if(player.board.isFleetDestroyed()) {
-                    'The computer wins! Reload the page to play again.';
+                    document.querySelector('div#game-flow-text').textContent = 'The computer wins! Reload the page to play again.';
                   }
                   setTimeout(() => {
                     if(!player.board.isFleetDestroyed()) {

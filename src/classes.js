@@ -98,6 +98,27 @@ class Gameboard {
 
     return false
   }
+
+  gatherAdjacentIndices(index) {
+    switch(true) {
+      case (index == 0):
+        return [1, 10]
+      case (index == 9):
+        return [8, 19]
+      case (index == 90):
+        return [80, 91]
+      case (index == 99):
+        return [98, 89]
+      case ([1, 2, 3, 4, 5, 6, 7, 8].includes(index)):
+        return [index - 1, index + 10, index + 1]
+      case ([10, 20, 30, 40, 50, 60, 70, 80].includes(index)):
+        return [index - 10, index + 1, index + 10]
+      case ([91, 92, 93, 94, 95, 96, 97, 98].includes(index)):
+        return [index - 1, index - 10, index + 1]
+      case ([19, 29, 39, 49, 59, 69, 79, 89].includes(index)):
+        return [index - 10, index - 1, index + 10]
+    }
+  }
 }
 
 class Player {
