@@ -117,6 +117,8 @@ class Gameboard {
         return [index - 1, index - 10, index + 1]
       case ([19, 29, 39, 49, 59, 69, 79, 89].includes(index)):
         return [index - 10, index - 1, index + 10]
+      default:
+        return [index - 1, index - 10, index + 1, index + 10]
     }
   }
 }

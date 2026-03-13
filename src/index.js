@@ -8,6 +8,6 @@ renderLandingPage();
 addLandingPageHandlers();
 document.querySelector('body > div:nth-child(2) > input').focus();
 
-window.renderLandingPage = renderLandingPage;
-window.renderBoardSetup = renderBoardSetup;
-window.renderArena = renderArena;
+// window.renderLandingPage = renderLandingPage;
+// window.renderBoardSetup = renderBoardSetup;
+// window.renderArena = renderArena;

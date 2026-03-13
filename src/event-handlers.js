@@ -1,4 +1,3 @@
-import { renderLandingPage } from "./landing-page.js";
 import { renderBoardSetup } from "./board-setup.js"; 
 import { renderArena } from "./arena.js";
 import { Player } from "./classes.js";
@@ -12,7 +11,6 @@ import battleship from './assets/sprites/Battleship/ShipBattleshipHull.png'
 import horizontalBattleship from './assets/sprites/Battleship/ShipBattleshipHullHorizontal.png'
 import carrier from './assets/sprites/Carrier/ShipCarrierHull.png'
 import horizontalCarrier from './assets/sprites/Carrier/ShipCarrierHullHorizontal.png'
-import rightArrow from './assets/SVGs/right-arrow-button-icon.svg'
 export { addLandingPageHandlers, addBoardSetuphandlers, player, playersBoard };
 
 let player;
@@ -57,7 +55,6 @@ function addBoardSetuphandlers() {
     if(event.key == 'ArrowRight') {
       orientation = (orientation == 'vertical') ? 'horizontal' : 'vertical';
     }
-    console.log(orientation);
   })
 
   document.querySelectorAll('div#quay > div:nth-child(-5n + 6)').forEach((square, index, nodeList) => {
@@ -410,8 +407,6 @@ function addBoardSetuphandlers() {
                 fightButton.setAttribute('class', 'valid');
               }
           }
-          console.log(player.board.grid);
-          console.log(nodeList);
           break;
         case 'submarine':
             const placeSubmarineReturnValue = player.board.placeShip(index, player.board.submarine, orientation);
@@ -430,8 +425,6 @@ function addBoardSetuphandlers() {
                 fightButton.setAttribute('class', 'valid');
               }
           }
-          console.log(player.board.grid);
-          console.log(nodeList);
           break;
         case 'cruiser':
             const placeCruiserReturnValue = player.board.placeShip(index, player.board.cruiser, orientation);
@@ -450,8 +443,6 @@ function addBoardSetuphandlers() {
                 fightButton.setAttribute('class', 'valid');
               }
           }
-          console.log(player.board.grid);
-          console.log(nodeList);
           break;
         case 'battleship':
             const placeBattleshipReturnValue = player.board.placeShip(index, player.board.battleship, orientation);
@@ -470,8 +461,6 @@ function addBoardSetuphandlers() {
                 fightButton.setAttribute('class', 'valid');
               }
           }
-          console.log(player.board.grid);
-          console.log(nodeList);
           break;
         case 'carrier':
             const placeCarrierReturnValue = player.board.placeShip(index, player.board.carrier, orientation);
@@ -490,8 +479,6 @@ function addBoardSetuphandlers() {
                 fightButton.setAttribute('class', 'valid');
               }
           }
-          console.log(player.board.grid);
-          console.log(nodeList);
           break;
       }
     })
@@ -501,7 +488,6 @@ function addBoardSetuphandlers() {
     if(fightButton.className == 'valid') {
       playersBoard = document.querySelector('div.gameboard').cloneNode(true);
       renderArena();
-      console.log(player.board);
     }
   })
 }
