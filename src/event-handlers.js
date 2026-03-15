@@ -59,7 +59,7 @@ function addBoardSetuphandlers() {
 
   document.querySelectorAll('div#quay > div:nth-child(-5n + 6)').forEach((square, index, nodeList) => {
     square.addEventListener('mousedown', (eventOuter) => {     
-      if(!isDestroyerPlaced) {
+      if(!isDestroyerPlaced && currentShip == '') {
         currentShip = 'destroyer';
         if(nodeList[0].hasChildNodes()) nodeList[0].removeChild(nodeList[0].firstChild);
         document.body.style.cursor = 'none';
@@ -125,7 +125,7 @@ function addBoardSetuphandlers() {
 
   document.querySelectorAll('div#quay > div:nth-child(-5n + 12)').forEach((square, index, nodeList) => {
     square.addEventListener('mousedown', (eventOuter) => {
-      if(!isSubmarinePlaced) {
+      if(!isSubmarinePlaced && currentShip == '') {
         currentShip = 'submarine';
         if(nodeList[0].hasChildNodes()) nodeList[0].removeChild(nodeList[0].firstChild);
         document.body.style.cursor = 'none';
@@ -191,7 +191,7 @@ function addBoardSetuphandlers() {
 
   document.querySelectorAll('div#quay > div:nth-child(-5n + 13)').forEach((square, index, nodeList) => {
     square.addEventListener('mousedown', (eventOuter) => {
-      if(!isCruiserPlaced) {
+      if(!isCruiserPlaced && currentShip == '') {
         currentShip = 'cruiser';
         if(nodeList[0].hasChildNodes()) nodeList[0].removeChild(nodeList[0].firstChild);
         document.body.style.cursor = 'none';
@@ -257,7 +257,7 @@ function addBoardSetuphandlers() {
 
   document.querySelectorAll('div#quay > div:nth-child(-5n + 19)').forEach((square, index, nodeList) => {
     square.addEventListener('mousedown', (eventOuter) => {
-      if(!isBattleshipPlaced) {
+      if(!isBattleshipPlaced && currentShip == '') {
         currentShip = 'battleship';
         if(nodeList[0].hasChildNodes()) nodeList[0].removeChild(nodeList[0].firstChild);
         document.body.style.cursor = 'none';
@@ -323,7 +323,7 @@ function addBoardSetuphandlers() {
 
   document.querySelectorAll('div#quay > div:nth-child(-5n + 25)').forEach((square, index, nodeList) => {
     square.addEventListener('mousedown', (eventOuter) => {
-      if(!isCarrierPlaced) {
+      if(!isCarrierPlaced && currentShip == '') {
         currentShip = 'carrier';
         if(nodeList[0].hasChildNodes()) nodeList[0].removeChild(nodeList[0].firstChild);
         document.body.style.cursor = 'none';
